@@ -12,6 +12,19 @@ Before proceeding, ensure you have the following tools installed:
 
 ## Steps to Package and Run on Docker
 
+### Build Your Docker
+
+Pull Image OpenJDK: You pull the OpenJDK image from Docker Hub
+
+```bash
+docker pull openjdk:version
+```
+Create Container from OpenJDK Image: Once you have the OpenJDK image, you create a container running OpenJDK:
+
+```bash
+docker run -it --name openjdk-container openjdk:version
+```
+
 ### Step 1: Build Your Spring Boot Application
 
 Use Maven to package your Spring Boot application into a JAR file.
@@ -30,7 +43,7 @@ Step 2: Copy the JAR File to Docker Container
 Now, copy the generated JAR file into the Docker container. Replace name with your container name, and ensure that the target folder contains the .jar file.
 
 ```bash
-docker cp target/name.jar name:/tmp
+docker cp target/name.jar name_Container:/tmp
 ```
 
 Step 3: Verify the JAR File in the Docker Container
@@ -45,7 +58,7 @@ Step 4: Commit the Changes to Docker Image
 Commit the changes to create a new Docker image with the Spring Boot application. The CMD instruction defines how the container will run the application.
 
 ```
-docker commit --change='CMD ["java", "-jar", "/tmp/name.jar"]' containers_Name newName:tagName
+docker commit --change='CMD ["java", "-jar", "/tmp/name.jar"]' name_Container new_name_images:tagName
 ```
 This command will update the image by setting the CMD to run your Spring Boot application when the container starts.
 
@@ -53,7 +66,7 @@ Step 5: Run the Docker Container
 Finally, run the newly created Docker image:
 
 ```bash
-docker run -d --name myapp newName:tagName
+docker run -d --name myapp new_name_images:tagName
 ```
 
 Conclusion
